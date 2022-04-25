@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/strick-j/cybr-pam-scim/pkg/cybr/pamscim/types"
+	"github.com/strick-j/cybr-pam-scim/pkg/pamscim/types"
 )
 
 var (

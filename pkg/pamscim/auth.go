@@ -14,12 +14,12 @@ type tokenSource struct {
 }
 
 // OauthCredClient returns a validated Oauth2 Authentication Token based on the following provided information:
-// - clientID - Username for the SCIM Application
-// - clientSecret - Password for the SCIM Application
-// - clientAppID - ID for the SCIM Application
-// - clientURL - URL for the SCIM Application (e.g. abc####.my.idaptive.app)
+//   clientID - Username for the SCIM Application (e.g. "identity-privilege-integration-user$@example.com")
+//   clientSecret - Password for the SCIM Application
+//   clientAppID - ID for the SCIM Application
+//   clientURL - URL for the SCIM Application (e.g. "example.my.idaptive.app")
 func OauthCredClient(clientID string, clientSecret string, clientAppID string, clientURL string) (*oauth2.Token, error) {
-	// Establish credential config with user passed in data
+	// Establish oauth2/clientcredentials config with user provided data
 	var credentialConfig = clientcredentials.Config{
 		ClientID:     clientID,
 		ClientSecret: clientSecret,

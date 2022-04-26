@@ -4,7 +4,7 @@ type PrivilegedDatas struct {
 	Schemas      []string          `json:"schemas"`
 	TotalResults int               `json:"totalResults"`
 	ItemsPerPage int               `json:"itemsPerPage"`
-	StartIndex   int               `json:"startIndex"`
+	StartIndex   int               `json:"startIndex,omitempty"`
 	Resources    []PrivilegedDatas `json:"Resources"`
 }
 

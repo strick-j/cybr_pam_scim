@@ -2,7 +2,10 @@ module github.com/strick-j/cybr-pam-scim
 
 go 1.18
 
-require golang.org/x/oauth2 v0.0.0-20220411215720-9780585627b5
+require (
+	golang.org/x/exp v0.0.0-20220426173459-3bcf042a4bf5
+	golang.org/x/oauth2 v0.0.0-20220411215720-9780585627b5
+)
 
 require (
 	github.com/golang/protobuf v1.4.2 // indirect

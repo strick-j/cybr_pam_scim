@@ -39,7 +39,8 @@ type HTTPClient interface {
 	Get(ctx context.Context, path string, v interface{}) error
 	Post(ctx context.Context, path string, payload interface{}, v interface{}) error
 	Put(ctx context.Context, path string, payload interface{}, v interface{}) error
-	Delete(ctx context.Context, path string, payload interface{}, v interface{}) error
+	Patch(ctx context.Context, path string, payload interface{}, v interface{}) error
+	Delete(ctx context.Context, path string, v interface{}) error
 }
 
 ////////////// COMMON METHODS - GET, POST, PUT, DELETE ///////////////////////////////////////////////
@@ -74,6 +75,19 @@ func (c *Client) Put(ctx context.Context, path string, payload interface{}, v in
 	req, err := c.newRequest(ctx, http.MethodPut, path, payload)
 	if err != nil {
 		return fmt.Errorf("failed to create PUT request: %w", err)
+	}
+
+	if err := c.doRequest(req, v); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (c *Client) Patch(ctx context.Context, path string, payload interface{}, v interface{}) error {
+	req, err := c.newRequest(ctx, http.MethodPatch, path, payload)
+	if err != nil {
+		return fmt.Errorf("failed to create PATCH request: %w", err)
 	}
 
 	if err := c.doRequest(req, v); err != nil {

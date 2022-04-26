@@ -24,6 +24,7 @@ func (s *Service) GetGroups(ctx context.Context) (*types.Groups, error) {
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s", "groups"), &Groups); err != nil {
 		return nil, fmt.Errorf("failed to get groups: %w", err)
 	}
+
 	return &Groups, nil
 }
 
@@ -37,6 +38,7 @@ func (s *Service) GetGroupsIndex(ctx context.Context, startIndex int, count int)
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s?%s", "Groups", pathEscapedQuery), &Groups); err != nil {
 		return nil, fmt.Errorf("failed to get Groups: %w", err)
 	}
+
 	return &Groups, nil
 }
 
@@ -66,6 +68,7 @@ func (s *Service) GetGroupsSort(ctx context.Context, sortBy string, sortOrder st
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s?%s", "Groups", pathEscapedQuery), &Groups); err != nil {
 		return nil, fmt.Errorf("failed to get Groups: %w", err)
 	}
+
 	return &Groups, nil
 }
 
@@ -79,11 +82,12 @@ func (s *Service) GetGroupById(ctx context.Context, id string) (*types.Group, er
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s/%s", "Groups", id), &Group); err != nil {
 		return nil, fmt.Errorf("failed to get Group %s: %w", id, err)
 	}
+
 	return &Group, nil
 }
 
 // GetGroupByFilter retrieves a single Group based on a provided filter.
-// The response from the SCIM API is returned as the types.Groups struct.
+// The response from the SCIM API is returned as the types.Group struct.
 // filterType should be displayName
 // filterQuery should be the actual query (e.g. Auditors)
 // The Groups struct response will only contain a single resource.
@@ -91,17 +95,18 @@ func (s *Service) GetGroupById(ctx context.Context, id string) (*types.Group, er
 // Example Usage:
 //        getGroup, err := s.GetGroupByFilter(context.Background, "displayName", "Auditors")
 //
-func (s *Service) GetGroupByFilter(ctx context.Context, filterType string, filterQuery string) (*types.Groups, error) {
+func (s *Service) GetGroupByFilter(ctx context.Context, filterType string, filterQuery string) (*types.Group, error) {
 	var pathEscapedQuery string
 	if filterType == "id" || filterType == "displayName" {
 		pathEscapedQuery = url.PathEscape("filter=" + filterType + " eq " + filterQuery)
 	} else {
-		return nil, fmt.Errorf("invalid filterType provide, accepted types are id or displayName")
+		return nil, fmt.Errorf("invalid filterType provided, accepted types are id or displayName")
 	}
-	if err := s.client.Get(ctx, fmt.Sprintf("/%s?%s", "Groups", pathEscapedQuery), &Groups); err != nil {
+	if err := s.client.Get(ctx, fmt.Sprintf("/%s?%s", "Groups", pathEscapedQuery), &Group); err != nil {
 		return nil, fmt.Errorf("failed to get Group based on filter parameters - %s = %s: %w", filterType, filterQuery, err)
 	}
-	return &Groups, nil
+
+	return &Group, nil
 }
 
 // AddGroup attempts add a single Group and requires a passed object in the form of
@@ -121,6 +126,7 @@ func (s *Service) AddGroup(ctx context.Context, group types.Group) (*types.Group
 	if err := s.client.Post(ctx, fmt.Sprintf("/%s", "Groups"), group, &Group); err != nil {
 		return nil, fmt.Errorf("failed to add Group %s: %w", group.DisplayName, err)
 	}
+
 	return &Group, nil
 }
 
@@ -139,6 +145,7 @@ func (s *Service) UpdateGroup(ctx context.Context, group types.Group) (*types.Gr
 	if err := s.client.Put(ctx, fmt.Sprintf("/%s/%s", "Groups", group.Id), group, &Group); err != nil {
 		return nil, fmt.Errorf("failed to update Group %s: %w", group.Id, err)
 	}
+
 	return &Group, nil
 }
 
@@ -154,5 +161,6 @@ func (s *Service) DeleteGroup(ctx context.Context, id string) error {
 	if err := s.client.Delete(ctx, fmt.Sprintf("/%s/%s", "Groups", id), nil); err != nil {
 		return fmt.Errorf("failed to delete Group %s: %w", id, err)
 	}
+
 	return nil
 }

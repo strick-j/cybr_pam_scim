@@ -16,7 +16,6 @@ type transport struct {
 }
 
 func NewService(clientURL string, clientApiEndpoint string, clientApiVersion string, verbose bool, authToken *oauth2.Token) *Service {
-
 	t := transport{
 		token: authToken.AccessToken,
 	}

@@ -25,6 +25,7 @@ func (s *Service) GetUsers(ctx context.Context) (*types.Users, error) {
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s", "users"), &Users); err != nil {
 		return nil, fmt.Errorf("failed to get users: %w", err)
 	}
+
 	return &Users, nil
 }
 
@@ -39,19 +40,20 @@ func (s *Service) GetUsersIndex(ctx context.Context, startIndex int, count int) 
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s?%s", "Users", pathEscapedQuery), &Users); err != nil {
 		return nil, fmt.Errorf("failed to get Users: %w", err)
 	}
+
 	return &Users, nil
 }
 
 // GetUsersSort retrieves and sorts all users via the SCIM API based on provided
 // The response from the SCIM API is returned as the types.Users struct
-// Supported "sortBy" fields: active, userName, displayName, name.givenName, name.familyName, userType, id
+// Supported "sortBy" fields: active, userName, displayName, name.givenName, name.familyName, userType, id, meta.created, meta.lastmodified
 // Supported "sortOrder" fileds are: ascending or descending
 //
 // Example Usage:
 //        sortUsers, err := s.GetUsersSort(context.Background, "userName", "ascending")
 //
 func (s *Service) GetUsersSort(ctx context.Context, sortBy string, sortOrder string) (*types.Users, error) {
-	allowedSortBy := []string{"active", "userName", "displayName", "name.familyName", "name.givenName", "userType", "id"}
+	allowedSortBy := []string{"active", "userName", "displayName", "name.familyName", "name.givenName", "userType", "id", "meta.created", "meta.lastmodified", "meta.location"}
 	var pathEscapedQuery string
 	// Input validations:
 	if slices.Contains(allowedSortBy, sortBy) {
@@ -63,11 +65,12 @@ func (s *Service) GetUsersSort(ctx context.Context, sortBy string, sortOrder str
 			return nil, fmt.Errorf("invalid sortOrder provided, accepted values are ascending, descending, or no input")
 		}
 	} else {
-		return nil, fmt.Errorf("invalid sortBy value provide, accepted values are active, userName, displayName, name.givenName, name.familyName, userType, or id")
+		return nil, fmt.Errorf("invalid sortBy value provided, accepted values are active, userName, displayName, name.givenName, name.familyName, userType, id, meta.created, meta.lastmodified, or meta.location")
 	}
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s?%s", "users", pathEscapedQuery), &Users); err != nil {
 		return nil, fmt.Errorf("failed to get users: %w", err)
 	}
+
 	return &Users, nil
 }
 
@@ -83,11 +86,12 @@ func (s *Service) GetUserById(ctx context.Context, id string) (*types.User, erro
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s/%s", "users", id), &User); err != nil {
 		return nil, fmt.Errorf("failed to get user %s: %w", id, err)
 	}
+
 	return &User, nil
 }
 
 // GetUserByFilter retrieves a single user based on a provided filter via the SCIM API.
-// The response from the SCIM API is returned as the types.Users struct.
+// The response from the SCIM API is returned as the types.User struct.
 // filterType is the json key (e.g. displayName, name.givenName, name.familyName)
 // filterQuery is the json value (e.g. john.smith@example.com, "John", "Smith")
 //
@@ -97,12 +101,13 @@ func (s *Service) GetUserById(ctx context.Context, id string) (*types.User, erro
 //      getUser, err := s.GetUserByFilter(context.Background, "userName", "john.smith@example.com")
 // 		getUser, err := s.GetUserByFilter(context.Background, "name.familyName", "Smith")
 //
-func (s *Service) GetUserByFilter(ctx context.Context, filterType string, filterQuery string) (*types.Users, error) {
+func (s *Service) GetUserByFilter(ctx context.Context, filterType string, filterQuery string) (*types.User, error) {
 	pathEscapedQuery := url.PathEscape("filter=" + filterType + " eq " + filterQuery)
-	if err := s.client.Get(ctx, fmt.Sprintf("/%s?%s", "users", pathEscapedQuery), &Users); err != nil {
+	if err := s.client.Get(ctx, fmt.Sprintf("/%s?%s", "users", pathEscapedQuery), &User); err != nil {
 		return nil, fmt.Errorf("failed to get user based on filter parameters - %s = %s: %w", filterType, filterQuery, err)
 	}
-	return &Users, nil
+
+	return &User, nil
 }
 
 // AddUser attempts add a single user and requires a types.User struct with the
@@ -125,6 +130,7 @@ func (s *Service) AddUser(ctx context.Context, user types.User) (*types.User, er
 	if err := s.client.Post(ctx, fmt.Sprintf("/%s", "users"), User, &User); err != nil {
 		return nil, fmt.Errorf("failed to add user %s: %w", user.UserName, err)
 	}
+
 	return &User, nil
 }
 
@@ -144,11 +150,12 @@ func (s *Service) UpdateUser(ctx context.Context, user types.User) (*types.User,
 	if err := s.client.Put(ctx, fmt.Sprintf("/%s/%s", "users", user.Id), User, &User); err != nil {
 		return nil, fmt.Errorf("failed to update user %s: %w", user.Id, err)
 	}
+
 	return &User, nil
 }
 
 // DeleteUser attempts to perform a "DELETE" operation against a single User by
-// User Id via the SCIM API and returns does not return a response is successful.
+// User Id via the SCIM API and does not return a response is successful.
 // An error will be returned if an attempt is made to delete multiple Users or
 // if deletion is attempted twice.
 //
@@ -159,5 +166,6 @@ func (s *Service) DeleteUser(ctx context.Context, id string) error {
 	if err := s.client.Delete(ctx, fmt.Sprintf("/%s/%s", "users", id), nil); err != nil {
 		return fmt.Errorf("failed to delete user %s: %w", id, err)
 	}
+
 	return nil
 }

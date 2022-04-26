@@ -16,6 +16,7 @@ type PrivilegedData struct {
 	Id                                               string                                           `json:"id"`
 	ExternalId                                       string                                           `json:"externalId,omitempty"`
 	Meta                                             Meta                                             `json:"meta"`
+	Operations                                       []Operations                                     `json:"Operations,omitempty"`
 	UrnIetfParamsScimSchemasCyberark10PrivilegedData UrnIetfParamsScimSchemasCyberark10PrivilegedData `json:"urn:ietf:params:scim:schemas:cyberark:1.0:PrivilegedData"`
 }
 

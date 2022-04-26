@@ -98,7 +98,7 @@ type ResourceType struct {
 	Schema           string             `json:"schema"`
 	SchemaExtensions []SchemaExtensions `json:"schemaExtensions,omitempty"`
 	Schemas          []string           `json:"schemas"`
-	ID               string             `json:"id"`
+	Id               string             `json:"id"`
 	Meta             Meta               `json:"meta"`
 }
 
@@ -120,7 +120,7 @@ type Schema struct {
 	Name        string       `json:"name"`
 	Description string       `json:"description,omitempty"`
 	Attributes  []Attributes `json:"attributes,omitempty"`
-	ID          string       `json:"id"`
+	Id          string       `json:"id"`
 	Meta        Meta         `json:"meta"`
 }
 

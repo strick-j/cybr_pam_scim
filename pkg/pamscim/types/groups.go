@@ -4,6 +4,8 @@ type Groups struct {
 	Schemas      []string `json:"schemas"`
 	TotalResults int      `json:"totalResults"`
 	Resources    []Groups `json:"Resources"`
+	StartIndex   int      `json:"startIndex,omitempty"`
+	ItemsPerPage int      `json:"itemsPerPage"`
 }
 
 type Group struct {

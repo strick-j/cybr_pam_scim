@@ -10,31 +10,33 @@ type Containers struct {
 
 type Container struct {
 	Name                                   string                                 `json:"name"`
-	DisplayName                            string                                 `json:"displayName"`
-	Description                            string                                 `json:"description"`
-	Type                                   string                                 `json:"type"`
-	Owner                                  Owner                                  `json:"owner"`
-	PrivilegedData                         []PrivilegedDataRef                    `json:"privilegedData"`
+	DisplayName                            string                                 `json:"displayName,omitempty"`
+	Description                            string                                 `json:"description,omitempty"`
+	Type                                   string                                 `json:"type,omitempty"`
+	Parent                                 Parent                                 `json:"parent,omitempty"`
+	Owner                                  Owner                                  `json:"owner,omitempty"`
+	PrivilegedData                         []PrivilegedDataRef                    `json:"privilegedData,omitempty"`
 	Schemas                                []string                               `json:"schemas"`
-	ID                                     string                                 `json:"id"`
+	Id                                     string                                 `json:"id"`
+	ExternalId                             string                                 `json:"externalId,omitempty"`
 	Meta                                   Meta                                   `json:"meta"`
 	UrnIetfParamsScimSchemasCyberark10Safe UrnIetfParamsScimSchemasCyberark10Safe `json:"urn:ietf:params:scim:schemas:cyberark:1.0:Safe"`
 }
 
 // Container Attribute
 type UrnIetfParamsScimSchemasCyberark10Safe struct {
-	NumberOfDaysRetention int    `json:"NumberOfDaysRetention"`
-	ManagingCPM           string `json:"ManagingCPM"`
+	NumberOfDaysRetention int    `json:"NumberOfDaysRetention,omitempty"`
+	ManagingCPM           string `json:"ManagingCPM,omitempty"`
 }
 
 type Owner struct {
-	Value   string `json:"value"`
-	Ref     string `json:"$ref"`
-	Display string `json:"display"`
+	Value   string `json:"value,omitempty"`
+	Ref     string `json:"$ref,omitempty"`
+	Display string `json:"display,omitempty"`
 }
 
-type PrivilegedDataRef struct {
-	Value   string `json:"value"`
-	Ref     string `json:"$ref"`
-	Display string `json:"display"`
+type Parent struct {
+	Value   string `json:"value,omitempty"`
+	Ref     string `json:"$ref,omitempty"`
+	Display string `json:"display,omitempty"`
 }

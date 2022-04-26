@@ -7,23 +7,23 @@ type Groups struct {
 }
 
 type Group struct {
-	DisptlayName                            string                                  `json:"disptlayName,omitempty"`
-	Members                                 []Members                               `json:"members"`
+	DisplayName                             string                                  `json:"displayName"`
+	Members                                 []Members                               `json:"members,omitempty"`
 	Schemas                                 []string                                `json:"schemas"`
-	ID                                      string                                  `json:"id"`
+	Id                                      string                                  `json:"id"`
 	Meta                                    Meta                                    `json:"meta"`
-	DisplayName                             string                                  `json:"displayName,omitempty"`
-	ExternalID                              string                                  `json:"externalId,omitempty"`
+	ExternalId                              string                                  `json:"externalId,omitempty"`
 	UrnIetfParamsScimSchemasCyberark10Group UrnIetfParamsScimSchemasCyberark10Group `json:"urn:ietf:params:scim:schemas:cyberark:1.0:Group,omitempty"`
 }
 
 type Members struct {
-	Value   string `json:"value"`
-	Ref     string `json:"$ref"`
-	Display string `json:"display"`
+	Value   string `json:"value,omitempty"`
+	Type    string `json:"type,omitempty"`
+	Ref     string `json:"$ref,omitempty"`
+	Display string `json:"display,omitempty"`
 }
 
 type UrnIetfParamsScimSchemasCyberark10Group struct {
-	DirectoryType string `json:"directoryType"`
-	DirectoryName string `json:"directoryName"`
+	DirectoryType string `json:"directoryType,omitempty"`
+	DirectoryName string `json:"directoryName,omitempty"`
 }

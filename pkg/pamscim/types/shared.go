@@ -4,15 +4,40 @@ import (
 	"time"
 )
 
-// Used with "Users, Containers, Groups, and PrivilegedData"
+// Generic Shared Fields //////////////////////////////////////////////////////////////////
+
+// Used in all responses
 type Meta struct {
-	ResourceType string    `json:"resourceType"`
-	Created      time.Time `json:"created"`
-	LastModified time.Time `json:"lastModified"`
-	Location     string    `json:"location"`
+	ResourceType string    `json:"resourceType,omitempty"`
+	Created      time.Time `json:"created,omitempty"`
+	LastModified time.Time `json:"lastModified,omitempty"`
+	Location     string    `json:"location,omitempty"`
+	Version      string    `json:"version,omitempty"`
 }
 
-// SCIM Service Provider Config ///////////////////////////////////////////
+// Used with "ContainerPermissions and PrivilegedDataPermissions"
+type PrivilegedDataRef struct {
+	Value   string `json:"value,omitempty"`
+	Ref     string `json:"$ref,omitempty"`
+	Display string `json:"display,omitempty"`
+	Type    string `json:"type,omitempty"`
+}
+
+// Used with "ContainerPermissions and PrivilegedDataPermissions"
+type GroupRef struct {
+	Value   string `json:"value,omitempty"`
+	Ref     string `json:"$ref,omitempty"`
+	Display string `json:"display,omitempty"`
+}
+
+// Used with "ContainerPermissions and PrivilegedDataPermissions"
+type UserRef struct {
+	Value   string `json:"value,omitempty"`
+	Ref     string `json:"$ref,omitempty"`
+	Display string `json:"display,omitempty"`
+}
+
+// SCIM Service Provider Config //////////////////////////////////////////////////////////////////
 type ScimConfig struct {
 	Schemas               []string                `json:"schemas"`
 	Patch                 Patch                   `json:"patch"`

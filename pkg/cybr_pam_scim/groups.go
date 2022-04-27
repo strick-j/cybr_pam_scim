@@ -18,7 +18,7 @@ var (
 // The response from the SCIM API is returned as the types.Groups struct.
 //
 // Example Usage:
-//        allGroups, err := s.GetGroups(context.Background)
+//		getGroups, err := s.GetGroups(context.Background)
 //
 func (s *Service) GetGroups(ctx context.Context) (*types.Groups, error) {
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s", "groups"), &Groups); err != nil {
@@ -29,9 +29,12 @@ func (s *Service) GetGroups(ctx context.Context) (*types.Groups, error) {
 }
 
 // GetGroupsIndex retrieves a limited subset of groups based on a starting and count.
+// The response from the SCIM API is returned as the types.Groups struct.
+//
+// Requires PVWA 12.2+
 //
 // Example Usage:
-//        indexGroups, err := s.GetGroupsIndex(context.Background, 1, 5)
+//		getGroupsIndex, err := s.GetGroupsIndex(context.Background, 1, 5)
 //
 func (s *Service) GetGroupsIndex(ctx context.Context, startIndex int, count int) (*types.Groups, error) {
 	pathEscapedQuery := url.PathEscape("startIndex=" + strconv.Itoa(startIndex) + "&count=" + strconv.Itoa(count))
@@ -47,8 +50,10 @@ func (s *Service) GetGroupsIndex(ctx context.Context, startIndex int, count int)
 // Supported "sortBy" fields are: displayName
 // Supported "sortOrder" fileds are: ascending or descending
 //
+// Requires PVWA 12.2+
+//
 // Example Usage:
-//        sortGroups, err := s.GetGroupsSort(context.Background, "displayName", "ascending")
+//		getGroupsSort, err := s.GetGroupsSort(context.Background, "displayName", "ascending")
 //
 func (s *Service) GetGroupsSort(ctx context.Context, sortBy string, sortOrder string) (*types.Groups, error) {
 	var pathEscapedQuery string
@@ -75,8 +80,10 @@ func (s *Service) GetGroupsSort(ctx context.Context, sortBy string, sortOrder st
 // GetGroupById retrieves a single Group by Group Id via the SCIM API.
 // The response from the SCIM API is returned as the types.Group struct.
 //
+// Requires PVWA 12.2+
+//
 // Example Usage:
-//        getGroup, err := s.GetGroupById(context.Background, "8")
+//		getGroupById, err := s.GetGroupById(context.Background, "8")
 //
 func (s *Service) GetGroupById(ctx context.Context, id string) (*types.Group, error) {
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s/%s", "Groups", id), &Group); err != nil {
@@ -93,7 +100,7 @@ func (s *Service) GetGroupById(ctx context.Context, id string) (*types.Group, er
 // The Groups struct response will only contain a single resource.
 //
 // Example Usage:
-//        getGroup, err := s.GetGroupByFilter(context.Background, "displayName", "Auditors")
+//		getGroupByFilter, err := s.GetGroupByFilter(context.Background, "displayName", "Auditors")
 //
 func (s *Service) GetGroupByFilter(ctx context.Context, filterType string, filterQuery string) (*types.Group, error) {
 	var pathEscapedQuery string
@@ -112,15 +119,15 @@ func (s *Service) GetGroupByFilter(ctx context.Context, filterType string, filte
 // AddGroup attempts add a single Group and requires a passed object in the form of
 // types.Group. The response from the SCIM API is returned as the types.Group struct.
 // At a minimum the struct must contain the following:
-//       DisplayName
-//       Schemas
+//		DisplayName
+//		Schemas
 //
 // Example Usage:
-// 		Group := types.Group {
+//		Group := types.Group {
 //			DisplayName: "ExampleGroup",
 //			Schemas:     []string{"urn:ietf:params:scim:schemas:core:2.0:Group"},
 //		}
-//      addGroup, err := s.AddGroup(context.Background, Group)
+//		addGroup, err := s.AddGroup(context.Background, Group)
 //
 func (s *Service) AddGroup(ctx context.Context, group types.Group) (*types.Group, error) {
 	if err := s.client.Post(ctx, fmt.Sprintf("/%s", "Groups"), group, &Group); err != nil {
@@ -135,11 +142,11 @@ func (s *Service) AddGroup(ctx context.Context, group types.Group) (*types.Group
 // group with an updated version or creates a new group entirely.
 //
 // Example Usage:
-// 		Group := types.Group {
+//		Group := types.Group {
 //			DisplayName: "ExampleGroup",
 //			Schemas:     []string{"urn:ietf:params:scim:schemas:core:2.0:Group"},
 //		}
-//      addGroup, err := s.UpdateGroup(context.Background, Group)
+//		addGroup, err := s.UpdateGroup(context.Background, Group)
 //
 func (s *Service) UpdateGroup(ctx context.Context, group types.Group) (*types.Group, error) {
 	if err := s.client.Put(ctx, fmt.Sprintf("/%s/%s", "Groups", group.Id), group, &Group); err != nil {
@@ -155,7 +162,7 @@ func (s *Service) UpdateGroup(ctx context.Context, group types.Group) (*types.Gr
 // if deletion is attempted twice.
 //
 // Example Usage:
-//        err := s.DeleteGroup(context.Background, "8")
+//		err := s.DeleteGroup(context.Background, "8")
 //
 func (s *Service) DeleteGroup(ctx context.Context, id string) error {
 	if err := s.client.Delete(ctx, fmt.Sprintf("/%s/%s", "Groups", id), nil); err != nil {

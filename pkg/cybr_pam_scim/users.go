@@ -19,7 +19,7 @@ var (
 // The response from the SCIM API is returned as the types.Users struct
 //
 // Example Usage:
-// 		getUsers, err := s.GetUsers(context.Bacground)
+//		getUsers, err := s.GetUsers(context.Background)
 //
 func (s *Service) GetUsers(ctx context.Context) (*types.Users, error) {
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s", "users"), &Users); err != nil {
@@ -32,8 +32,10 @@ func (s *Service) GetUsers(ctx context.Context) (*types.Users, error) {
 // GetUsersIndex retrieves a limited subset of Users based on a starting index and count.
 // The response from the SCIM API is returned as the types.Users struct
 //
+// Requires PVWA 12.2+
+//
 // Example Usage:
-//        indexUsers, err := s.GetUsersIndex(context.Background, 1, 5)
+//		getUsersIndex, err := s.GetUsersIndex(context.Background, 1, 5)
 //
 func (s *Service) GetUsersIndex(ctx context.Context, startIndex int, count int) (*types.Users, error) {
 	pathEscapedQuery := url.PathEscape("startIndex=" + strconv.Itoa(startIndex) + "&count=" + strconv.Itoa(count))
@@ -49,8 +51,10 @@ func (s *Service) GetUsersIndex(ctx context.Context, startIndex int, count int) 
 // Supported "sortBy" fields: active, userName, displayName, name.givenName, name.familyName, userType, id, meta.created, meta.lastmodified
 // Supported "sortOrder" fileds are: ascending or descending
 //
+// Requires PVWA 12.2+
+//
 // Example Usage:
-//        sortUsers, err := s.GetUsersSort(context.Background, "userName", "ascending")
+//		getUsersSort, err := s.GetUsersSort(context.Background, "userName", "ascending")
 //
 func (s *Service) GetUsersSort(ctx context.Context, sortBy string, sortOrder string) (*types.Users, error) {
 	allowedSortBy := []string{"active", "userName", "displayName", "name.familyName", "name.givenName", "userType", "id", "meta.created", "meta.lastmodified", "meta.location"}
@@ -77,10 +81,10 @@ func (s *Service) GetUsersSort(ctx context.Context, sortBy string, sortOrder str
 // GetUserById retrieves a single user by User Id via the SCIM API.
 // The response from the SCIM API is returned as the types.User struct.
 //
-// Requires PVWA 12.2
+// Requires PVWA 12.2+
 //
 // Example Usage:
-//        getUser, err := s.GetUserById(context.Background, "1")
+//		getUserById, err := s.GetUserById(context.Background, "1")
 //
 func (s *Service) GetUserById(ctx context.Context, id string) (*types.User, error) {
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s/%s", "users", id), &User); err != nil {
@@ -98,8 +102,8 @@ func (s *Service) GetUserById(ctx context.Context, id string) (*types.User, erro
 // Notes: Filter query is case sensitive
 //
 // Example Usage:
-//      getUser, err := s.GetUserByFilter(context.Background, "userName", "john.smith@example.com")
-// 		getUser, err := s.GetUserByFilter(context.Background, "name.familyName", "Smith")
+//		getUserByFilter, err := s.GetUserByFilter(context.Background, "userName", "john.smith@example.com")
+//		getUserByFilter, err := s.GetUserByFilter(context.Background, "name.familyName", "Smith")
 //
 func (s *Service) GetUserByFilter(ctx context.Context, filterType string, filterQuery string) (*types.User, error) {
 	pathEscapedQuery := url.PathEscape("filter=" + filterType + " eq " + filterQuery)
@@ -114,16 +118,16 @@ func (s *Service) GetUserByFilter(ctx context.Context, filterType string, filter
 // desired user information. The response from the SCIM API is returned as the types.User struct.
 //
 // At a minimum the types.User struct must contain the following:
-//       UserName
-//       Password
-//       Schemas
+//		UserName
+//		Password
+//		Schemas
 //
 // Example Usage:
-// 		user := types.User {
+//		user := types.User {
 //			UserName: "JohnDoe@example.com",
 //			Password: "ExamplePass",
 //			Schemas:  []string{"urn:ietf:params:scim:schemas:core:2.0:User"},
-// 		}
+//		}
 //      addUser, err := s.AddUser(context.Background, user)
 //
 func (s *Service) AddUser(ctx context.Context, user types.User) (*types.User, error) {
@@ -139,9 +143,9 @@ func (s *Service) AddUser(ctx context.Context, user types.User) (*types.User, er
 // the removal of user attribute values.
 //
 // Example Usage:
-// 		user := types.User {
+//		user := types.User {
 //			UserName:    "JohnDoe@example.com",
-//          Active:      false, // Disable User via PUT
+//			Active:      false, // Disable User via PUT
 //			Schemas:     []string{"urn:ietf:params:scim:schemas:core:2.0:User"},
 //		}
 //      updateUser, err := s.UpdateUser(context.Background, user)
@@ -160,7 +164,7 @@ func (s *Service) UpdateUser(ctx context.Context, user types.User) (*types.User,
 // if deletion is attempted twice.
 //
 // Example Usage:
-//        err := s.DeleteUser(context.Background, "8")
+//		err := s.DeleteUser(context.Background, "8")
 //
 func (s *Service) DeleteUser(ctx context.Context, id string) error {
 	if err := s.client.Delete(ctx, fmt.Sprintf("/%s/%s", "users", id), nil); err != nil {

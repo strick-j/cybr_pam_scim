@@ -19,7 +19,7 @@ var (
 // The response from the SCIM API is returned as the types.PrivilegedDatas struct
 //
 // Example Usage:
-// 		getPrivilegedData, err := s.GetPrivilegedData(context.Background)
+//		getPrivilegedData, err := s.GetPrivilegedData(context.Background)
 //
 func (s *Service) GetPrivilegedData(ctx context.Context) (*types.PrivilegedDatas, error) {
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s", "PrivilegedData"), &PrivilegedDatas); err != nil {
@@ -32,8 +32,10 @@ func (s *Service) GetPrivilegedData(ctx context.Context) (*types.PrivilegedDatas
 // GetPrivilegedDataIndex retrieves a limited subset of Privileged Data based on a starting index and count.
 // The response from the SCIM API is returned as the types.PrivilegedDatas struct
 //
+// Requires PVWA 12.2+
+//
 // Example Usage:
-//        indexPrivilegedData, err := s.GetPrivilegedDataIndex(context.Background, 10, 5)
+//		getPrivielegedDataIndex, err := s.GetPrivilegedDataIndex(context.Background, 10, 5)
 //
 func (s *Service) GetPrivilegedDataIndex(ctx context.Context, startIndex int, count int) (*types.PrivilegedDatas, error) {
 	pathEscapedQuery := url.PathEscape("startIndex=" + strconv.Itoa(startIndex) + "&count=" + strconv.Itoa(count))
@@ -49,8 +51,10 @@ func (s *Service) GetPrivilegedDataIndex(ctx context.Context, startIndex int, co
 // Supported "sortBy" fields: name, id, type, meta.created, meta.lastModified, or meta.location
 // Supported "sortOrder" fileds are: ascending or descending
 //
+// Requires PVWA 12.2+
+//
 // Example Usage:
-//        sortPrivilegedData, err := s.GetPrivilegedDataSort(context.Background, "name", "ascending")
+//		getPrivilegedDataSort, err := s.GetPrivilegedDataSort(context.Background, "name", "ascending")
 //
 func (s *Service) GetPrivilegedDataSort(ctx context.Context, sortBy string, sortOrder string) (*types.PrivilegedDatas, error) {
 	var pathEscapedQuery string
@@ -78,10 +82,10 @@ func (s *Service) GetPrivilegedDataSort(ctx context.Context, sortBy string, sort
 // GetPrivilegedDataById retrieves a data point based on Id via the SCIM API.
 // The response from the SCIM API is returned as the types.PrivilegedData struct.
 //
-// Requires PVWA 12.2
+// Requires PVWA 12.2+
 //
 // Example Usage:
-//        getPrivilegedDataById, err := s.GetPrivilegedDataById(context.Background, "92_2")
+//		getPrivilegedDataById, err := s.GetPrivilegedDataById(context.Background, "92_2")
 //
 func (s *Service) GetPrivilegedDataById(ctx context.Context, id string) (*types.PrivilegedData, error) {
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s/%s", "PrivilegedData", id), &PrivilegedData); err != nil {
@@ -116,13 +120,13 @@ func (s *Service) GetPrivilegedDataByFilter(ctx context.Context, filterType stri
 // The response from the SCIM API is returned as the types.PrivilegedData struct.
 //
 // Example Usage:
-// 		PrivilegedData := types.PrivilegedData {
-//    		Name: "NewAccount",
-//		    Type: "password",
-// 			Schemas: []string{"urn:ietf:params:scim:schemas:pam:1.0:PrivilegedData", "urn:ietf:params:scim:schemas:cyberark:1.0:PrivilegedData"}
+//		PrivilegedData := types.PrivilegedData {
+//			Name: "NewAccount",
+//			Type: "password",
+//			Schemas: []string{"urn:ietf:params:scim:schemas:pam:1.0:PrivilegedData", "urn:ietf:params:scim:schemas:cyberark:1.0:PrivilegedData"}
 //			UrnIetfParamsScimSchemasCyberark10PrivilegedData: types.UrnIetfParamsScimSchemasCyberark10PrivilegedData {
 //				Safe: "safeName",
-//	 			Properties: []types.Properties {
+//				Properties: []types.Properties {
 //					{
 //						Key: "username"
 //						Value: "ExampleUser"
@@ -140,6 +144,7 @@ func (s *Service) GetPrivilegedDataByFilter(ctx context.Context, filterType stri
 //						Value: "ExampleSecret"
 //					},
 //				},
+//			},
 //		}
 //      addPrivilegedData, err := s.AddPrivilegedData(context.Background, PrivilegedData)
 //
@@ -155,14 +160,16 @@ func (s *Service) AddPrivilegedData(ctx context.Context, privilegedData types.Pr
 // a types.PrivilegedData struct with the desired udpates. The PrivilegedData Id must be part of the struct
 // for this function to work properly.
 //
+// Requires PVWA 12.2+
+//
 // Example Usage:
 // 		PrivilegedDataUpdate := types.PrivilegedData {
-//    		Name: "NewAccount",
-//          Id: "62_3"
-// 			Schemas: []string{"urn:ietf:params:scim:schemas:pam:1.0:PrivilegedData", "urn:ietf:params:scim:schemas:cyberark:1.0:PrivilegedData"}
+//			Name: "NewAccount",
+//			Id: "62_3"
+//			Schemas: []string{"urn:ietf:params:scim:schemas:pam:1.0:PrivilegedData", "urn:ietf:params:scim:schemas:cyberark:1.0:PrivilegedData"}
 //			UrnIetfParamsScimSchemasCyberark10PrivilegedData: types.UrnIetfParamsScimSchemasCyberark10PrivilegedData {
 //				Safe: "safeName",
-//	 			Properties: []types.Properties {
+//				Properties: []types.Properties {
 //					{
 //						Key: "username"
 //						Value: "ExampleUser"
@@ -179,7 +186,7 @@ func (s *Service) AddPrivilegedData(ctx context.Context, privilegedData types.Pr
 //		}
 //      addPrivilegedData, err := s.AddPrivilegedData(context.Background, PrivilegedData)
 //
-func (s *Service) UpdatePrivilegedDatas(ctx context.Context, privilegedData types.PrivilegedData) (*types.PrivilegedData, error) {
+func (s *Service) UpdatePrivilegedData(ctx context.Context, privilegedData types.PrivilegedData) (*types.PrivilegedData, error) {
 	if err := s.client.Put(ctx, fmt.Sprintf("/%s/%s", "PrivilegedData", privilegedData.Id), PrivilegedData, &PrivilegedData); err != nil {
 		return nil, fmt.Errorf("failed to update Privileged Data: %w", err)
 	}
@@ -192,25 +199,25 @@ func (s *Service) UpdatePrivilegedDatas(ctx context.Context, privilegedData type
 // The PrivilegedData Id must be part of the struct for this function to work properly.
 //
 // Example Usage:
-// 		PrivilegedDataModify := types.PrivilegedData {
-//          Id: "62_3"
-// 			Schemas: []string{"urn:ietf:params:scim:api:messages:2.0:PatchOp"}
-//          Operations: []types.Operations {
-//					{
-//						Op: "replace",
-//						Path: "urn:ietf:params:scim:schemas:cyberark:1.0:PrivilegedData.properties",
-//					    Value: []types.Value {
-//							{
-//								Key: "address",
-//                          	Value: "newAddress",
-//							},
+//		PrivilegedDataModify := types.PrivilegedData {
+//			Id: "62_3"
+//			Schemas: []string{"urn:ietf:params:scim:api:messages:2.0:PatchOp"}
+//			Operations: []types.Operations {
+//				{
+//					Op: "replace",
+//					Path: "urn:ietf:params:scim:schemas:cyberark:1.0:PrivilegedData.properties",
+//					Value: []types.Value {
+//						{
+//							Key: "address",
+//							Value: "newAddress",
 //						},
 //					},
+//				},
 //			},
 //		}
 //      modifyPrivilegedData, err := s.ModifyPrivilegedData(context.Background, PrivilegedDataModify)
 //
-func (s *Service) ModifyPrivilegedDatas(ctx context.Context, privilegedData types.PrivilegedData) (*types.PrivilegedData, error) {
+func (s *Service) ModifyPrivilegedData(ctx context.Context, privilegedData types.PrivilegedData) (*types.PrivilegedData, error) {
 	if err := s.client.Patch(ctx, fmt.Sprintf("/%s/%s", "PrivilegedData", privilegedData.Id), PrivilegedData, &PrivilegedData); err != nil {
 		return nil, fmt.Errorf("failed to update Privileged Data: %w", err)
 	}
@@ -225,7 +232,7 @@ func (s *Service) ModifyPrivilegedDatas(ctx context.Context, privilegedData type
 // if deletion is attempted twice.
 //
 // Example Usage:
-//        err := s.DeletePrivilegedData(context.Background, "62_3")
+//		err := s.DeletePrivilegedData(context.Background, "62_3")
 //
 func (s *Service) DeletePrivilegedData(ctx context.Context, id string) error {
 	if err := s.client.Delete(ctx, fmt.Sprintf("/%s/%s", "PrivilegedData", id), nil); err != nil {

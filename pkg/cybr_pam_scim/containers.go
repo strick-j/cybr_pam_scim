@@ -19,7 +19,7 @@ var (
 // The response from the SCIM API is returned as the types.Containers struct
 //
 // Example Usage:
-// 		getSafes, err := s.GetSafes(context.Bacground)
+//		getSafes, err := s.GetSafes(context.Background)
 //
 func (s *Service) GetSafes(ctx context.Context) (*types.Containers, error) {
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s", "Containers"), &Containers); err != nil {
@@ -32,8 +32,10 @@ func (s *Service) GetSafes(ctx context.Context) (*types.Containers, error) {
 // GetSafesIndex retrieves a limited subset of Safes based on a starting index and count.
 // The response from the SCIM API is returned as the types.Containers struct
 //
+// Requires PVWA 12.2+
+//
 // Example Usage:
-//        indexSafes, err := s.GetSafesIndex(context.Background, 10, 5)
+//		getSafesIndex, err := s.GetSafesIndex(context.Background, 10, 5)
 //
 func (s *Service) GetSafesIndex(ctx context.Context, startIndex int, count int) (*types.Containers, error) {
 	pathEscapedQuery := url.PathEscape("startIndex=" + strconv.Itoa(startIndex) + "&count=" + strconv.Itoa(count))
@@ -49,8 +51,10 @@ func (s *Service) GetSafesIndex(ctx context.Context, startIndex int, count int) 
 // Supported "sortBy" fields: name, displayName, description, id, meta.created, meta.lastModified, or meta.location
 // Supported "sortOrder" fileds are: ascending or descending
 //
+// Requires PVWA 12.2+
+//
 // Example Usage:
-//        sortSafes, err := s.GetSafesSort(context.Background, "SafeName", "ascending")
+//		getSafesSort, err := s.GetSafesSort(context.Background, "SafeName", "ascending")
 //
 func (s *Service) GetSafesSort(ctx context.Context, sortBy string, sortOrder string) (*types.Containers, error) {
 	allowedSortBy := []string{"name", "displayName", "description", "id", "meta.created", "meta.lastmodified", "meta.location"}
@@ -78,10 +82,10 @@ func (s *Service) GetSafesSort(ctx context.Context, sortBy string, sortOrder str
 // GetSafeByName retrieves a single Safe by Safe Name via the SCIM API.
 // The response from the SCIM API is returned as the types.Container struct.
 //
-// Requires PVWA 12.2
+// Requires PVWA 12.2+
 //
 // Example Usage:
-//        getSafeByName, err := s.GetSafeByName(context.Background, "NotificationEngine")
+//		getSafeByName, err := s.GetSafeByName(context.Background, "NotificationEngine")
 //
 func (s *Service) GetSafeByName(ctx context.Context, safeName string) (*types.Container, error) {
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s/%s", "Containers", safeName), &Container); err != nil {
@@ -99,11 +103,11 @@ func (s *Service) GetSafeByName(ctx context.Context, safeName string) (*types.Co
 // Notes: Filter query is case sensitive
 //
 // Example Usage:
-//      getContainer, err := s.GetContainerByFilter(context.Background, "name", "PVWATicketingSystem")
+//		getSafeByFilter, err := s.GetSafeByFilter(context.Background, "name", "PVWATicketingSystem")
 //
 func (s *Service) GetSafeByFilter(ctx context.Context, filterType string, filterQuery string) (*types.Container, error) {
 	pathEscapedQuery := url.PathEscape("filter=" + filterType + " eq " + filterQuery)
-	if err := s.client.Get(ctx, fmt.Sprintf("/%s?%s", "Safes", pathEscapedQuery), &Container); err != nil {
+	if err := s.client.Get(ctx, fmt.Sprintf("/%s?%s", "Containers", pathEscapedQuery), &Container); err != nil {
 		return nil, fmt.Errorf("failed to get Container based on filter parameters - %s = %s: %w", filterType, filterQuery, err)
 	}
 
@@ -114,8 +118,8 @@ func (s *Service) GetSafeByFilter(ctx context.Context, filterType string, filter
 // desired Safe information. The response from the SCIM API is returned as the types.Container struct.
 //
 // At a minimum the types.Container struct must contain the following:
-//       Name
-//       Schemas
+//		Name
+//		Schemas
 //
 // Example Usage:
 // 		safe := types.Container {
@@ -125,7 +129,7 @@ func (s *Service) GetSafeByFilter(ctx context.Context, filterType string, filter
 //      addSafe, err := s.AddSafe(context.Background, safe)
 //
 func (s *Service) AddSafe(ctx context.Context, safe types.Container) (*types.Container, error) {
-	if err := s.client.Post(ctx, fmt.Sprintf("/%s", "Safes"), safe, &Container); err != nil {
+	if err := s.client.Post(ctx, fmt.Sprintf("/%s", "Containers"), safe, &Container); err != nil {
 		return nil, fmt.Errorf("failed to add Container %s: %w", safe.Name, err)
 	}
 
@@ -147,7 +151,7 @@ func (s *Service) AddSafe(ctx context.Context, safe types.Container) (*types.Con
 //      updateSafe, err := s.UpdateContainer(context.Background, safe)
 //
 func (s *Service) UpdateSafe(ctx context.Context, safe types.Container) (*types.Container, error) {
-	if err := s.client.Put(ctx, fmt.Sprintf("/%s/%s", "Safes", safe.Id), Container, &Container); err != nil {
+	if err := s.client.Put(ctx, fmt.Sprintf("/%s/%s", "Containers", safe.Id), Container, &Container); err != nil {
 		return nil, fmt.Errorf("failed to update Container %s: %w", safe.Id, err)
 	}
 
@@ -160,10 +164,10 @@ func (s *Service) UpdateSafe(ctx context.Context, safe types.Container) (*types.
 // if deletion is attempted twice.
 //
 // Example Usage:
-//        err := s.DeleteSafe(context.Background, "ExampleSafe")
+//		err := s.DeleteSafe(context.Background, "ExampleSafe")
 //
 func (s *Service) DeleteSafe(ctx context.Context, name string) error {
-	if err := s.client.Delete(ctx, fmt.Sprintf("/%s/%s", "Safes", name), nil); err != nil {
+	if err := s.client.Delete(ctx, fmt.Sprintf("/%s/%s", "Containers", name), nil); err != nil {
 		return fmt.Errorf("failed to delete Container %s: %w", name, err)
 	}
 

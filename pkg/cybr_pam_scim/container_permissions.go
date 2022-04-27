@@ -86,7 +86,7 @@ func (s *Service) GetSafePermissionsSort(ctx context.Context, sortBy string, sor
 //		getSafePermissionsByName, err := s.GetSafePermissionsByName(context.Background, "VaultInternal", "EPMAgent")
 //
 func (s *Service) GetSafePermissionsByName(ctx context.Context, safeName string, userOrGroupName string) (*types.ContainerPermission, error) {
-	if err := s.client.Get(ctx, fmt.Sprintf("/%s/%s:%s", "ContainerPermissions", safeName, userOrGroupName), &ContainerPermission); err != nil {
+	if err := s.client.Get(ctx, fmt.Sprintf("/%s/%s:%s", "ContainerPermissions", url.PathEscape(safeName), url.PathEscape(userOrGroupName)), &ContainerPermission); err != nil {
 		return nil, fmt.Errorf("failed to get User (%s) permissions on Safe %s: %w", userOrGroupName, safeName, err)
 	}
 
@@ -111,7 +111,7 @@ func (s *Service) GetSafePermissionsByName(ctx context.Context, safeName string,
 //		getSafePermissionsByFilter, err := s.GetSafePermissionsByFilter(context.Background, "group.value", "18")
 //
 func (s *Service) GetSafePermissionByFilter(ctx context.Context, filterType string, filterQuery string) (*types.ContainerPermissions, error) {
-	pathEscapedQuery := url.PathEscape("filter=" + filterType + " eq " + filterQuery)
+	pathEscapedQuery := url.PathEscape("filter=" + filterType + " eq \"" + filterQuery + "\"")
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s?%s", "ContainerPermissions", pathEscapedQuery), &ContainerPermissions); err != nil {
 		return nil, fmt.Errorf("failed to get Safe Permissions based on filter parameters - %s = %s: %w", filterType, filterQuery, err)
 	}

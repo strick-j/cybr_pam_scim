@@ -106,7 +106,7 @@ func (s *Service) GetUserById(ctx context.Context, id string) (*types.User, erro
 //		getUserByFilter, err := s.GetUserByFilter(context.Background, "name.familyName", "Smith")
 //
 func (s *Service) GetUserByFilter(ctx context.Context, filterType string, filterQuery string) (*types.User, error) {
-	pathEscapedQuery := url.PathEscape("filter=" + filterType + " eq " + filterQuery)
+	pathEscapedQuery := url.PathEscape("filter=" + filterType + " eq \"" + filterQuery + "\"")
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s?%s", "users", pathEscapedQuery), &User); err != nil {
 		return nil, fmt.Errorf("failed to get user based on filter parameters - %s = %s: %w", filterType, filterQuery, err)
 	}

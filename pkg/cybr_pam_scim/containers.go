@@ -88,7 +88,7 @@ func (s *Service) GetSafesSort(ctx context.Context, sortBy string, sortOrder str
 //		getSafeByName, err := s.GetSafeByName(context.Background, "NotificationEngine")
 //
 func (s *Service) GetSafeByName(ctx context.Context, safeName string) (*types.Container, error) {
-	if err := s.client.Get(ctx, fmt.Sprintf("/%s/%s", "Containers", safeName), &Container); err != nil {
+	if err := s.client.Get(ctx, fmt.Sprintf("/%s/%s", "Containers", url.PathEscape(safeName)), &Container); err != nil {
 		return nil, fmt.Errorf("failed to get Safe %s: %w", safeName, err)
 	}
 
@@ -106,7 +106,7 @@ func (s *Service) GetSafeByName(ctx context.Context, safeName string) (*types.Co
 //		getSafeByFilter, err := s.GetSafeByFilter(context.Background, "name", "PVWATicketingSystem")
 //
 func (s *Service) GetSafeByFilter(ctx context.Context, filterType string, filterQuery string) (*types.Container, error) {
-	pathEscapedQuery := url.PathEscape("filter=" + filterType + " eq " + filterQuery)
+	pathEscapedQuery := url.PathEscape("filter=" + filterType + " eq \"" + filterQuery + "\"")
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s?%s", "Containers", pathEscapedQuery), &Container); err != nil {
 		return nil, fmt.Errorf("failed to get Container based on filter parameters - %s = %s: %w", filterType, filterQuery, err)
 	}

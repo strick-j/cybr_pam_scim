@@ -107,7 +107,7 @@ func (s *Service) GetPrivilegedDataById(ctx context.Context, id string) (*types.
 //      getPrivilegedDataByFilter, err := s.GetPrivilegedDataByFilter(context.Background, "id", "92_3")
 //
 func (s *Service) GetPrivilegedDataByFilter(ctx context.Context, filterType string, filterQuery string) (*types.PrivilegedDatas, error) {
-	pathEscapedQuery := url.PathEscape("filter=" + filterType + " eq " + filterQuery)
+	pathEscapedQuery := url.PathEscape("filter=" + filterType + " eq \"" + filterQuery + "\"")
 	if err := s.client.Get(ctx, fmt.Sprintf("/%s?%s", "PrivilegedDatas", pathEscapedQuery), &PrivilegedDatas); err != nil {
 		return nil, fmt.Errorf("failed to get Safe Permissions based on filter parameters - %s = %s: %w", filterType, filterQuery, err)
 	}

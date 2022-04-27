@@ -105,7 +105,7 @@ func (s *Service) GetGroupById(ctx context.Context, id string) (*types.Group, er
 func (s *Service) GetGroupByFilter(ctx context.Context, filterType string, filterQuery string) (*types.Group, error) {
 	var pathEscapedQuery string
 	if filterType == "id" || filterType == "displayName" {
-		pathEscapedQuery = url.PathEscape("filter=" + filterType + " eq " + filterQuery)
+		pathEscapedQuery = url.PathEscape("filter=" + filterType + " eq \"" + filterQuery + "\"")
 	} else {
 		return nil, fmt.Errorf("invalid filterType provided, accepted types are id or displayName")
 	}

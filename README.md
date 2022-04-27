@@ -46,16 +46,16 @@ All functions are documented with example usage in their respective go files.
 
 ### Users
 
-| Function | Action | Input | Output | Notes |
-| --- | --- | --- | --- | --- |
-| GetUsers | GET | - | [types.Users](pkg\cybr_pam_scim\types\users.go) or error | - |
-| GetUsersIndex | GET | Start Index and Count as strings | [types.Users](pkg\cybr_pam_scim\types\users.go) or error | - |
-| GetUsersSort | GET |Sort By and Sord Order as strings | [types.Users](pkg\cybr_pam_scim\types\users.go) or error | - |
-| GetUserById | GET | User Id as string | [types.User](pkg\cybr_pam_scim\types\users.go) or error | Requires PVWA 12.2+ |
-| GetUserByFilter | GET | Filter Type and Filter Query as strings | [types.User](pkg\cybr_pam_scim\types\users.go) or error | Filter Query is Case Sensitive |
-| AddUser | POST | [types.User](pkg\cybr_pam_scim\types\users.go) struct | [types.User](pkg\cybr_pam_scim\types\users.go) or error | - |
-| UpdateUser | PUT | [types.User](pkg\cybr_pam_scim\types\users.go) struct | [types.User](pkg\cybr_pam_scim\types\users.go) or error | - |
-| DeleteUser | DELETE | User Id as string | error | No response is returned on success |
+| Function | Input | Output |
+| --- | --- | --- |
+| GetUsers | - | [types.Users](pkg\cybr_pam_scim\types\users.go) or error |
+| GetUsersIndex | Start Index and Count as strings | [types.Users](pkg\cybr_pam_scim\types\users.go) or error |
+| GetUsersSort | Sort By and Sord Order as strings | [types.Users](pkg\cybr_pam_scim\types\users.go) or error |
+| GetUserById | User Id as string | [types.User](pkg\cybr_pam_scim\types\users.go) or error | Requires PVWA 12.2+ |
+| GetUserByFilter | Filter Type and Filter Query as strings | [types.User](pkg\cybr_pam_scim\types\users.go) or error | 
+| AddUser | [types.User](pkg\cybr_pam_scim\types\users.go) struct | [types.User](pkg\cybr_pam_scim\types\users.go) or error | 
+| UpdateUser | [types.User](pkg\cybr_pam_scim\types\users.go) struct | [types.User](pkg\cybr_pam_scim\types\users.go) or error | 
+| DeleteUser | User Id as string | error |
 
 ### Groups
 

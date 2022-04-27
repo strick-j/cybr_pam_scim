@@ -46,22 +46,16 @@ All functions are documented with example usage in their respective go files.
 
 ### Users
 
-#### GetUsers
-* Requires:
-	* No input
-
-* Returns:
-	* Success: Users in the [types.Users](pkg\cybr_pam_scim\types\users.go) struct
-	* Failure: Error
-
-#### GetUsersIndex
-* Requires:
-	* Start Index: String for starting index position (e.g. "10")
-	* Count: String for total count (e.g. "5")
-
-* Returns:
-	* Success: Users in the [types.Users](pkg\cybr_pam_scim\types\users.go) struct
-	* Failure: Error
+| Function | Action | Input | Output | Notes |
+| --- | --- | --- | --- | --- |
+| GetUsers | GET | - | [types.Users](pkg\cybr_pam_scim\types\users.go) or error | - |
+| GetUsersIndex | GET | Start Index and Count as strings | [types.Users](pkg\cybr_pam_scim\types\users.go) or error | - |
+| GetUsersSort | GET |Sort By and Sord Order as strings | [types.Users](pkg\cybr_pam_scim\types\users.go) or error | - |
+| GetUserById | GET | User Id as string | [types.User](pkg\cybr_pam_scim\types\users.go) or error | Requires PVWA 12.2+ |
+| GetUserByFilter | GET | Filter Type and Filter Query as strings | [types.User](pkg\cybr_pam_scim\types\users.go) or error | Filter Query is Case Sensitive |
+| AddUser | POST | [types.User](pkg\cybr_pam_scim\types\users.go) struct | [types.User](pkg\cybr_pam_scim\types\users.go) or error | - |
+| UpdateUser | PUT | [types.User](pkg\cybr_pam_scim\types\users.go) struct | [types.User](pkg\cybr_pam_scim\types\users.go) or error | - |
+| DeleteUser | DELETE | User Id as string | error | No response is returned on success |
 
 ### Groups
 

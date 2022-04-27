@@ -1,4 +1,4 @@
-package pamscim
+package cybr_pam_scim
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/strick-j/cybr-pam-scim/pkg/pamscim/types"
+	"github.com/strick-j/cybr-pam-scim/pkg/types"
 )
 
 var (

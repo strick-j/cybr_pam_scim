@@ -13,6 +13,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
 	"os"
 
 	cybr_pam_scim "github.com/strick-j/cybr_pam_scim/pkg/cybr_pam_scim"
@@ -37,7 +38,7 @@ func main() {
 	// }
 	authToken, err := cybr_pam_scim.OauthCredClient(username, secret, appId, scimUrl)
 	if err != nil {
-		fmt.Fatalf("Authentication Failed. %s", err)
+		log.Fatalf("Authentication Failed. %s", err)
 	}
 
 	// Utilize the returned oauth2.Token to create a service that leverages the

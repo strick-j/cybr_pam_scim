@@ -1,4 +1,4 @@
-package pamscim
+package cybr_pam_scim
 
 import (
 	"context"

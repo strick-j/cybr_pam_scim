@@ -56,6 +56,7 @@ All functions are documented with example usage in their respective go files. Ge
 | `UpdateUser` | [types.User](pkg/cybr_pam_scim/types/users.go) | [types.User](pkg/cybr_pam_scim/types/users.go) or error | |
 | `DeleteUser` | User Id | error |
 
+**Notes:**
 1. GetUsersByFilter: Filter Query is case sensitive
 2. UpdateUser: User Id must be included in the type.User struct for Update Safe permissions as the API endpoint is generated based on this info.
 
@@ -72,6 +73,7 @@ All functions are documented with example usage in their respective go files. Ge
 | `UpdateGroup` | [types.Group](pkg/cybr_pam_scim/types/groups.go) | [types.Group](pkg/cybr_pam_scim/types/groups.go) or error | X |
 | `DeleteGroup` | Group Id | error |
 
+**Notes:**
 1. GetGroupsByFilter: Filter Query is case sensitive
 2. UpdateGroup: Group Id must be included in the type.Group struct for Update Safe permissions as the API endpoint is generated based on this info.
 
@@ -88,7 +90,7 @@ All functions are documented with example usage in their respective go files. Ge
 | `UpdateSafe` | [types.Container](pkg/cybr_pam_scim/types/containers.go) | [types.Container](pkg/cybr_pam_scim/types/containers.go) or error | X |
 | `DeleteSafe` | Safe Name | error | |
 
-Notes:
+**Notes:**
 1. General: Safe functions utilize Safe Name instead of Id although both fields are typically the same in the returned types.Container struct.
 2. GetSafeByFilter: Filter Query is case sensitive
 
@@ -105,7 +107,7 @@ Notes:
 | `UpdateSafePermissions` | [types.ContainerPermission](pkg/cybr_pam_scim/types/container_permissions.go) | [types.Container](pkg/cybr_pam_scim/types/container_permissions.go) or error | |
 | `DeleteSafePermissions` | Safe Name and User or Group Name | error | |
 
-Notes:
+**Notes:**
 1. GetSafePermissionsByFilter: Filter Query is case sensitive
 2. UpdateSafePermissions: User Display Name and Safe Name must be included in the type.ContainerPermissions struct for Update Safe permissions as the API endpoint is generated based on this info.
 2. DeleteSafePermissions: Deletes a User or Group membership to a safe. You must provide either a User or Group Name in addition to the Safe Name.
@@ -124,7 +126,7 @@ Notes:
 | `ModifyPrivilegedData` | [types.PrivilegedData](pkg/cybr_pam_scim/types/privileged_data.go) | [types.PrivilegedData](pkg/cybr_pam_scim/types/privileged_data.go) or error | |
 | `DeletePrivilegedData` | Privileged Data Id | error | |
 
-Notes:
+**Notes:**
 1. GetPrivilegedDataByFilter: Filter Query is case sensitive
 2. UpdatePrivilegedData: The Privileged Data Id must be included in the types.PrivilegedData struct as the API endpoint is generated based on this info.
 3. ModifyPrivilegedData: The Privileged Data Id must be included in the types.PrivilegedData struct as the API endpoint is generated based on this info.

@@ -48,14 +48,14 @@ All functions are documented with example usage in their respective go files.
 
 | Function | Input | Output |
 | --- | --- | --- |
-| GetUsers | - | [types.Users](pkg\cybr_pam_scim\types\users.go) or error |
-| GetUsersIndex | Start Index and Count as strings | [types.Users](pkg\cybr_pam_scim\types\users.go) or error |
-| GetUsersSort | Sort By and Sord Order as strings | [types.Users](pkg\cybr_pam_scim\types\users.go) or error |
-| GetUserById | User Id as string | [types.User](pkg\cybr_pam_scim\types\users.go) or error | Requires PVWA 12.2+ |
-| GetUserByFilter | Filter Type and Filter Query as strings | [types.User](pkg\cybr_pam_scim\types\users.go) or error | 
-| AddUser | [types.User](pkg\cybr_pam_scim\types\users.go) struct | [types.User](pkg\cybr_pam_scim\types\users.go) or error | 
-| UpdateUser | [types.User](pkg\cybr_pam_scim\types\users.go) struct | [types.User](pkg\cybr_pam_scim\types\users.go) or error | 
-| DeleteUser | User Id as string | error |
+| `GetUsers` | - | [types.Users](pkg\cybr_pam_scim\types\users.go) or error |
+| `GetUsersIndex` | Start Index and Count | [types.Users](pkg\cybr_pam_scim\types\users.go) or error |
+| `GetUsersSort` | Sort By and Sord Order | [types.Users](pkg\cybr_pam_scim\types\users.go) or error |
+| `GetUserById` | User Id | [types.User](pkg\cybr_pam_scim\types\users.go) or error | Requires PVWA 12.2+ |
+| `GetUserByFilter` | Filter Type and Filter Query | [types.User](pkg\cybr_pam_scim\types\users.go) or error | 
+| `AddUser` | [types.User](pkg\cybr_pam_scim\types\users.go) | [types.User](pkg\cybr_pam_scim\types\users.go) or error | 
+| `UpdateUser` | [types.User](pkg\cybr_pam_scim\types\users.go) | [types.User](pkg\cybr_pam_scim\types\users.go) or error | 
+| `DeleteUser` | User Id | error |
 
 ### Groups
 

@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/strick-j/cybr-pam-scim/pkg/types"
+	"github.com/strick-j/cybr_pam_scim/pkg/cybr_pam_scim/types"
 )
 
 var (

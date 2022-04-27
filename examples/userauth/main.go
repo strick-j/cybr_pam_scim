@@ -15,7 +15,7 @@ import (
 	"fmt"
 	"os"
 
-	cybr_pam_scim "github.com/strick-j/cybr_pam_scim"
+	cybr_pam_scim "github.com/strick-j/cybr_pam_scim/pkg/cybr_pam_scim"
 )
 
 func main() {

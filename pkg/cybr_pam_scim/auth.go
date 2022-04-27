@@ -37,7 +37,7 @@ func OauthCredClient(clientID string, clientSecret string, clientAppID string, c
 	// Request new token from SCIM server using Client Credentials
 	authToken, err := ts.conf.Token(context.Background())
 	if err != nil {
-		return nil, fmt.Errorf("Failed to obtain SCIM Oauth2 Token")
+		return nil, fmt.Errorf("failed to obtain SCIM Oauth2 Token %w", err)
 	}
 
 	return authToken, nil

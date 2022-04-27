@@ -23,45 +23,45 @@ All functions are documented with example usage in their respective go files.
 
 ##### OauthCredClient
 * Requires:
-** Username: The username (e.g. identity-integration-user@abc1234.my.idaptive.app)
-** Secret: The user secret for authentiction
-** Application Id: The SCIM Oauth Application Name (e.g. examplescimapp)
-** CyberArk Identity Url: The base URL (e.g. abc1234.my.idaptive.app)
+	* Username: The username (e.g. identity-integration-user@abc1234.my.idaptive.app)
+	* Secret: The user secret for authentiction
+	* Application Id: The SCIM Oauth Application Name (e.g. examplescimapp)
+	* CyberArk Identity Url: The base URL (e.g. abc1234.my.idaptive.app)
 
 * Returns:
-** Authentication Success: Authentication token in the format of [oauth2.token](https://pkg.go.dev/golang.org/x/oauth2#Token)
-** Authentication Failure: Error
+	* Authentication Success: Authentication token in the format of [oauth2.token](https://pkg.go.dev/golang.org/x/oauth2#Token)
+	* Authentication Failure: Error
 
 ### Service
 
 #### NewService
 * Requires:
-** CyberArk Identity Url - The base URL (e.g. abc1234.my.idaptive.app)
-** CyberArk Identity API Endpoint _ (e.g. scim)
-** CyberArk Identity API Version - (e.g. v2)
-** Authentication Token - (e.g. Token returned from OauthCredClient)
+	* CyberArk Identity Url - The base URL (e.g. abc1234.my.idaptive.app)
+	* CyberArk Identity API Endpoint _ (e.g. scim)
+	* CyberArk Identity API Version - (e.g. v2)
+	* Authentication Token - (e.g. Token returned from OauthCredClient)
 
 * Returns:
-** HTTP Client wrapped in a service with Roundtrip parameters set
+	* HTTP Client wrapped in a service with Roundtrip parameters set
 
 ### Users
 
 #### GetUsers
 * Requires:
-** No input
+	* No input
 
 * Returns:
-** Success: Users in the [types.Users](pkg\cybr_pam_scim\types\users.go) struct
-** Failure: Error
+	* Success: Users in the [types.Users](pkg\cybr_pam_scim\types\users.go) struct
+	* Failure: Error
 
 #### GetUsersIndex
 * Requires:
-** Start Index: String for starting index position (e.g. "10")
-** Count: String for total count (e.g. "5")
+	* Start Index: String for starting index position (e.g. "10")
+	* Count: String for total count (e.g. "5")
 
 * Returns:
-** Success: Users in the [types.Users](pkg\cybr_pam_scim\types\users.go) struct
-** Failure: Error
+	* Success: Users in the [types.Users](pkg\cybr_pam_scim\types\users.go) struct
+	* Failure: Error
 
 ### Groups
 
@@ -92,8 +92,7 @@ func main() {
         appId = os.Getenv("IDENTITY_APP_ID")
         scimUrl = os.Getenv("IDENTITY_URL")
     )
-
-    // Obtain an auth token with the provided credentials and endpoint parameters
+	// Obtain an auth token with the provided credentials and endpoint parameters
 	// The Oauth2 Token format should be the following:
 	// type Token struct {
 	//     AccessToken string `json:"access_token"`

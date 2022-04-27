@@ -47,13 +47,13 @@ All functions are documented with example usage in their respective go files. Ge
 
 | Function | Input | Output | PVWA 12.2+ Required |
 |:--- |:--- |:--- |:---:|
-| `GetUsers` | - | [types.Users](pkg\cybr_pam_scim\types\users.go) or error | |
-| `GetUsersIndex` | Start Index and Count | [types.Users](pkg\cybr_pam_scim\types\users.go) or error | X |
-| `GetUsersSort` | Sort By and Sord Order | [types.Users](pkg\cybr_pam_scim\types\users.go) or error | X |
-| `GetUserById` | User Id | [types.User](pkg\cybr_pam_scim\types\users.go) or error | X |
-| `GetUserByFilter` | Filter Type and Filter Query | [types.User](pkg\cybr_pam_scim\types\users.go) or error | | 
-| `AddUser` | [types.User](pkg\cybr_pam_scim\types\users.go) | [types.User](pkg\cybr_pam_scim\types\users.go) or error | X |
-| `UpdateUser` | [types.User](pkg\cybr_pam_scim\types\users.go) | [types.User](pkg\cybr_pam_scim\types\users.go) or error | |
+| `GetUsers` | - | [types.Users](pkg/cybr_pam_scim/types/users.go) or error | |
+| `GetUsersIndex` | Start Index and Count | [types.Users](pkg/cybr_pam_scim/types/users.go) or error | X |
+| `GetUsersSort` | Sort By and Sord Order | [types.Users](pkg/cybr_pam_scim/types/users.go) or error | X |
+| `GetUserById` | User Id | [types.User](pkg/cybr_pam_scim/types/users.go) or error | X |
+| `GetUserByFilter` | Filter Type and Filter Query | [types.User](pkg/cybr_pam_scim/types/users.go) or error | | 
+| `AddUser` | [types.User](pkg/cybr_pam_scim/types/users.go) | [types.User](pkg/cybr_pam_scim/types/users.go) or error | X |
+| `UpdateUser` | [types.User](pkg/cybr_pam_scim/types/users.go) | [types.User](pkg/cybr_pam_scim/types/users.go) or error | |
 | `DeleteUser` | User Id | error |
 
 1. GetUsersByFilter: Filter Query is case sensitive
@@ -63,13 +63,13 @@ All functions are documented with example usage in their respective go files. Ge
 
 | Function | Input | Output | PVWA 12.2+ Required |
 |:--- |:--- |:--- |:---:|
-| `GetGroups` | - | [types.Groups](pkg\cybr_pam_scim\types\groups.go) or error | |
-| `GetGroupsIndex` | Start Index and Count | [types.Groups](pkg\cybr_pam_scim\types\groupss.go) or error | X |
-| `GetGroupsSort` | Sort By and Sord Order | [types.Groups](pkg\cybr_pam_scim\types\groups.go) or error | X |
-| `GetGroupById` | Group Id | [types.Group](pkg\cybr_pam_scim\types\groups.go) or error | X |
-| `GetGroupByFilter` | Filter Type and Filter Query | [types.Group](pkg\cybr_pam_scim\types\groups.go) or error | |
-| `AddGroup` | [types.Group](pkg\cybr_pam_scim\types\groups.go) | [types.Groupr](pkg\cybr_pam_scim\types\groups.go) or error | |
-| `UpdateGroup` | [types.Group](pkg\cybr_pam_scim\types\groups.go) | [types.Group](pkg\cybr_pam_scim\types\groups.go) or error | X |
+| `GetGroups` | - | [types.Groups](pkg/cybr_pam_scim/types/groups.go) or error | |
+| `GetGroupsIndex` | Start Index and Count | [types.Groups](pkg/cybr_pam_scim/types/groupss.go) or error | X |
+| `GetGroupsSort` | Sort By and Sord Order | [types.Groups](pkg/cybr_pam_scim/types/groups.go) or error | X |
+| `GetGroupById` | Group Id | [types.Group](pkg/cybr_pam_scim/types/groups.go) or error | X |
+| `GetGroupByFilter` | Filter Type and Filter Query | [types.Group](pkg/cybr_pam_scim/types/groups.go) or error | |
+| `AddGroup` | [types.Group](pkg/cybr_pam_scim/types/groups.go) | [types.Groupr](pkg/cybr_pam_scim/types/groups.go) or error | |
+| `UpdateGroup` | [types.Group](pkg/cybr_pam_scim/types/groups.go) | [types.Group](pkg/cybr_pam_scim/types/groups.go) or error | X |
 | `DeleteGroup` | Group Id | error |
 
 1. GetGroupsByFilter: Filter Query is case sensitive
@@ -79,13 +79,13 @@ All functions are documented with example usage in their respective go files. Ge
 
 | Function | Input | Output | PVWA 12.2+ Required |
 |:--- |:--- |:--- |:---:|
-| `GetSafes` | - | [types.Containers](pkg\cybr_pam_scim\types\containers.go) or error | |
-| `GetSafesIndex` | Start Index and Count | [types.Containers](pkg\cybr_pam_scim\types\containers.go) or error | X |
-| `GetSafesSort` | Sort By and Sord Order | [types.Containers](pkg\cybr_pam_scim\types\containers.go) or error | X |
-| `GetSafeByName` | Safe Name | [types.Container](pkg\cybr_pam_scim\types\containers.go) or error | X |
-| `GetSafeByFilter` | Filter Type and Filter Query | [types.Container](pkg\cybr_pam_scim\types\containers.go) or error | |
-| `AddSafe` | [types.Container](pkg\cybr_pam_scim\types\containers.go) | [types.Container](pkg\cybr_pam_scim\types\containers.go) or error | |
-| `UpdateSafe` | [types.Container](pkg\cybr_pam_scim\types\containers.go) | [types.Container](pkg\cybr_pam_scim\types\containers.go) or error | X |
+| `GetSafes` | - | [types.Containers](pkg/cybr_pam_scim/types/containers.go) or error | |
+| `GetSafesIndex` | Start Index and Count | [types.Containers](pkg/cybr_pam_scim/types/containers.go) or error | X |
+| `GetSafesSort` | Sort By and Sord Order | [types.Containers](pkg/cybr_pam_scim/types/containers.go) or error | X |
+| `GetSafeByName` | Safe Name | [types.Container](pkg/cybr_pam_scim/types/containers.go) or error | X |
+| `GetSafeByFilter` | Filter Type and Filter Query | [types.Container](pkg/cybr_pam_scim/types/containers.go) or error | |
+| `AddSafe` | [types.Container](pkg/cybr_pam_scim/types/containers.go) | [types.Container](pkg/cybr_pam_scim/types/containers.go) or error | |
+| `UpdateSafe` | [types.Container](pkg/cybr_pam_scim/types/containers.go) | [types.Container](pkg/cybr_pam_scim/types/containers.go) or error | X |
 | `DeleteSafe` | Safe Name | error | |
 
 Notes:
@@ -96,13 +96,13 @@ Notes:
 
 | Function | Input | Output | PVWA 12.2+ Required |
 |:--- |:--- |:--- |:---:|
-| `GetSafePermissions` | - | [types.ContainerPermissions](pkg\cybr_pam_scim\types\ContainerPermissions.go) or error | |
-| `GetSafePermissionsIndex` | Start Index and Count | [types.ContainerPermissions](pkg\cybr_pam_scim\types\container_permissions.go) or error | X |
-| `GetSafePermissionsSort` | Sort By and Sord Order | [types.ContainerPermissions](pkg\cybr_pam_scim\types\container_permissions.go) or error | X |
-| `GetSafePermissionsByName` | Safe Name and User Name | [types.ContainerPermission](pkg\cybr_pam_scim\types\container_permissions.go) or error | X |
-| `GetSafePermissionsByFilter` | Filter Type and Filter Query | [types.ContainerPermission](pkg\cybr_pam_scim\types\container_permissions.go) or error | |
-| `AddSafePermissions` | [types.ContainerPermission](pkg\cybr_pam_scim\types\container_permissions.go) | [types.Container](pkg\cybr_pam_scim\types\container_permissions.go) or error | X |
-| `UpdateSafePermissions` | [types.ContainerPermission](pkg\cybr_pam_scim\types\container_permissions.go) | [types.Container](pkg\cybr_pam_scim\types\container_permissions.go) or error | |
+| `GetSafePermissions` | - | [types.ContainerPermissions](pkg/cybr_pam_scim/types/container_permissions.go) or error | |
+| `GetSafePermissionsIndex` | Start Index and Count | [types.ContainerPermissions](pkg/cybr_pam_scim/types/container_permissions.go) or error | X |
+| `GetSafePermissionsSort` | Sort By and Sord Order | [types.ContainerPermissions](pkg/cybr_pam_scim/types/container_permissions.go) or error | X |
+| `GetSafePermissionsByName` | Safe Name and User Name | [types.ContainerPermission](pkg/cybr_pam_scim/types/container_permissions.go) or error | X |
+| `GetSafePermissionsByFilter` | Filter Type and Filter Query | [types.ContainerPermission](pkg/cybr_pam_scim/types/container_permissions.go) or error | |
+| `AddSafePermissions` | [types.ContainerPermission](pkg/cybr_pam_scim/types/container_permissions.go) | [types.Container](pkg/cybr_pam_scim/types/container_permissions.go) or error | X |
+| `UpdateSafePermissions` | [types.ContainerPermission](pkg/cybr_pam_scim/types/container_permissions.go) | [types.Container](pkg/cybr_pam_scim/types/container_permissions.go) or error | |
 | `DeleteSafePermissions` | Safe Name and User or Group Name | error | |
 
 Notes:
@@ -114,14 +114,14 @@ Notes:
 
 | Function | Input | Output | PVWA 12.2+ Required |
 |:--- |:--- |:--- |:---:|
-| `GetPrivilegedData` | - | [types.PrivilegedDatas](pkg\cybr_pam_scim\types\privileged_data.go) or error | |
-| `GetPrivilegedDataIndex` | Start Index and Count | [types.PrivilegedDatas](pkg\cybr_pam_scim\types\privileged_data.go) or error | X |
-| `GetPrivilegedDataSort` | Sort By and Sord Order | [types.PrivilegedDatas](pkg\cybr_pam_scim\types\privileged_data.go) or error | X |
-| `GetPrivilegedDataById` | Privileged Data Id | [types.PrivilegedData](pkg\cybr_pam_scim\types\privileged_data.go) or error | X |
-| `GetPrivilegedDataByFilter` | Filter Type and Filter Query | [types.PrivilegedData](pkg\cybr_pam_scim\types\privileged_data.go) or error | |
-| `AddPrivilegedData` | [types.PrivilegedData](pkg\cybr_pam_scim\types\privileged_data.go) | [types.PrivilegedData](pkg\cybr_pam_scim\types\privileged_data.go) or error | X |
-| `UpdatePrivilegedData` | [types.PrivilegedData](pkg\cybr_pam_scim\types\privileged_data.go) | [types.PrivilegedData](pkg\cybr_pam_scim\types\privileged_data.go) or error | |
-| `ModifyPrivilegedData` | [types.PrivilegedData](pkg\cybr_pam_scim\types\privileged_data.go) | [types.PrivilegedData](pkg\cybr_pam_scim\types\privileged_data.go) or error | |
+| `GetPrivilegedData` | - | [types.PrivilegedDatas](pkg/cybr_pam_scim/types/privileged_data.go) or error | |
+| `GetPrivilegedDataIndex` | Start Index and Count | [types.PrivilegedDatas](pkg/cybr_pam_scim/types/privileged_data.go) or error | X |
+| `GetPrivilegedDataSort` | Sort By and Sord Order | [types.PrivilegedDatas](pkg/cybr_pam_scim/types/privileged_data.go) or error | X |
+| `GetPrivilegedDataById` | Privileged Data Id | [types.PrivilegedData](pkg/cybr_pam_scim/types/privileged_data.go) or error | X |
+| `GetPrivilegedDataByFilter` | Filter Type and Filter Query | [types.PrivilegedData](pkg/cybr_pam_scim/types/privileged_data.go) or error | |
+| `AddPrivilegedData` | [types.PrivilegedData](pkg/cybr_pam_scim/types/privileged_data.go) | [types.PrivilegedData](pkg/cybr_pam_scim/types/privileged_data.go) or error | X |
+| `UpdatePrivilegedData` | [types.PrivilegedData](pkg/cybr_pam_scim/types/privileged_data.go) | [types.PrivilegedData](pkg/cybr_pam_scim/types/privileged_data.go) or error | |
+| `ModifyPrivilegedData` | [types.PrivilegedData](pkg/cybr_pam_scim/types/privileged_data.go) | [types.PrivilegedData](pkg/cybr_pam_scim/types/privileged_data.go) or error | |
 | `DeletePrivilegedData` | Privileged Data Id | error | |
 
 Notes:

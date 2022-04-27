@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	pamscim "github.com/strick-j/cybr-pam-scim/pkg/cybr_pam_scim"
+	cybr_pam_scim "github.com/strick-j/cybr_pam_scim/pkg/cybr_pam_scim"
 	"golang.org/x/oauth2"
 )
 
@@ -35,7 +35,7 @@ func main() {
 
 	// Utilize the returned oauth2.Token to create a service that leverages the
 	// the https client module
-	s := pamscim.NewService(scimUrl, "scim", "v2", false, authToken)
+	s := cybr_pam_scim.NewService(scimUrl, "scim", "v2", false, authToken)
 
 	// Utilize the service to interact with the SCIM API
 	// In this example all users are being retrieved and the DisplayName of the

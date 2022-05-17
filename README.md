@@ -27,7 +27,10 @@ import (
 ```
 
 All functions are documented with example usage in their respective go files. General flow for usage will be:
-1. Obtain oauth2.token through authentication via Username and Password or by using existing Bearer Token
+1. Obtain oauth2.token through authentication
+	1. Provide existing Bearer token
+	2. Use Client Credential Workflow via `OauthCredClient`
+	3. Use Resource Owner Workflow via `OauthResourceOwner`
 2. Establish Service with Oauth2 Token
 3. Utilize Service to interact User, Group, Container, or Privileged Data functions
 
@@ -35,7 +38,8 @@ All functions are documented with example usage in their respective go files. Ge
 
 | Function | Input | Output |
 |:--- |:--- |:--- |
-| `OauthCredClient` | Username, Secret, Application Id, Identity URL | [oauth2.token](https://pkg.go.dev/golang.org/x/oauth2#Token) or error |
+| `OauthCredClient` | Client Id, Client secret, Application Id, Identity URL | [oauth2.token](https://pkg.go.dev/golang.org/x/oauth2#Token) or error |
+| `OauthResourceOwner` | Client Id, Client secret,, Application Id, Identity URL, Resource Owner Username, Resource Owner Password | [oauth2.token](https://pkg.go.dev/golang.org/x/oauth2#Token) or error |
 
 ### Service
 
@@ -144,37 +148,79 @@ All functions are documented with example usage in their respective go files. Ge
 ```go
 package main
 
+////// Client Credentials Overview ///////////////////////////////////////////////////
+//
+// This example leverages a client_id and client_secret to authenticate
+// to the SCIM Oauth2 Endpoint (https://<ScimUrl>/ouath2/token/<AppId>).
+//
+// If Authentication is successful a clientCredentials.Oauth2 token is returned.
+// The returned Oauth2 token is then utilized to establish a Service
+// based on thehttps client module to interact with the SCIM API.
+//
+/////////////////////////////////////////////////////////////////////////////
+
 import (
+	"context"
+	"encoding/json"
 	"fmt"
 	"log"
-	"os"
 
-	cybr_pam_scim "github.com/strick-j/cybr_pam_scim"
+	"github.com/spf13/viper"
+	cybr_pam_scim "github.com/strick-j/cybr_pam_scim/pkg/cybr_pam_scim"
 )
 
 func main() {
-    var (
-        username = os.Getenv("IDENITY_USERNAME")
-        secret = os.Getenv("IDENTITY_SECRET")
-        appId = os.Getenv("IDENTITY_APP_ID")
-        scimUrl = os.Getenv("IDENTITY_URL")
-    )
+	// Set the file name of the configuration file
+	viper.SetConfigName("config")
+
+	// Set the path to look for configuration file
+	viper.AddConfigPath(".")
+
+	// Enable VIPER to read Environment Variables
+	viper.AutomaticEnv()
+	viper.SetConfigType("yml")
+
+	if err := viper.ReadInConfig(); err != nil {
+		fmt.Printf("Error reading config file, %s", err)
+	}
+
+	// Read environment variables from config.yml and set them with type assertion
+	clientId, ok := viper.Get("IDENTITY.CLIENT_ID").(string)
+	clientSecret, ok := viper.Get("IDENTITY.CLIENT_SECRET").(string)
+	clientAppId, ok := viper.Get("IDENTITY.APP_ID").(string)
+	clientUrl, ok := viper.Get("IDENTITY.URL").(string)
+
+	// If type assert is not valid it will throw an error
+	if !ok {
+		log.Fatalf("Invalid type assertion")
+	}
+
 	// Obtain an auth token with the provided credentials and endpoint parameters
 	// The Oauth2 Token format should be the following:
 	// type Token struct {
-	//     AccessToken string `json:"access_token"`
+	// 	   AccessToken string `json:"access_token"`
 	//     TokenType string `json:"token_type,omitempty"`
 	//     RefreshToken string `json:"refresh_token,omitempty"`
 	//     Expiry time.Time `json:"expiry,omitempty"`
 	// }
-	authToken, err := cybr_pam_scim.OauthCredClient(username, secret, appId, scimUrl)
+	// Note: Client Credentials token does not contain a refresh token
+	authToken, err := cybr_pam_scim.OauthCredClient(clientId, clientSecret, clientAppId, clientUrl)
 	if err != nil {
-		fmt.Fatalf("Authentication Failed. %s", err)
+		log.Fatalf("Authentication Failed. %s", err)
 	}
+
+	// Marshal the authToken for display purposes
+	authTokenJSON, err := json.MarshalIndent(authToken, "", "  ")
+	if err != nil {
+		log.Fatalf(err.Error())
+	}
+
+	// Print the auth Token
+	fmt.Printf("Auth Token JSON Response %s\n", string(authTokenJSON))
 
 	// Utilize the returned oauth2.Token to create a service that leverages the
 	// the https client module
-	s := cybr_pam_scim.NewService(scimUrl, "scim", "v2", false, authToken)
+	s := cybr_pam_scim.NewService(clientUrl, "scim", "v2", false, authToken)
 
 	// Utilize the returned service to interact with the SCIM API
 	// In this example all users are being retrieved and the DisplayName of the

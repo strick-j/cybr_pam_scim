@@ -23,7 +23,7 @@ func OauthCredClient(clientID, clientSecret, clientAppID, clientURL string) (*oa
 	var credentialConfig = clientcredentials.Config{
 		ClientID:     clientID,
 		ClientSecret: clientSecret,
-		TokenURL:     "https://" + clientURL + "/oauth2/token/" + clientAppID,
+		TokenURL:     clientURL + "/oauth2/token/" + clientAppID,
 		AuthStyle:    0,
 		Scopes:       []string{"scim"},
 	}
@@ -52,8 +52,8 @@ func OauthCredClient(clientID, clientSecret, clientAppID, clientURL string) (*oa
 //   resourcePassword - Password for the Resource Owner
 func OauthResourceOwner(clientID, clientSecret, clientAppID, clientURL, resourceUsername, resourcePassword string) (*oauth2.Token, error) {
 	endpoint := oauth2.Endpoint{
-		AuthURL:   "https://" + clientURL + "/oauth2/authorize/" + clientAppID,
-		TokenURL:  "https://" + clientURL + "/oauth2/token/" + clientAppID,
+		AuthURL:   clientURL + "/oauth2/authorize/" + clientAppID,
+		TokenURL:  clientURL + "/oauth2/token/" + clientAppID,
 		AuthStyle: 0,
 	}
 

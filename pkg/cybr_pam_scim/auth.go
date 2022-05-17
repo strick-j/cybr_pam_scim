@@ -18,7 +18,7 @@ type tokenSource struct {
 //   clientSecret - Password for the SCIM Application
 //   clientAppID - ID for the SCIM Application
 //   clientURL - URL for the SCIM Application (e.g. "example.my.idaptive.app")
-func OauthCredClient(clientID string, clientSecret string, clientAppID string, clientURL string) (*oauth2.Token, error) {
+func OauthCredClient(clientID, clientSecret, clientAppID, clientURL string) (*oauth2.Token, error) {
 	// Establish oauth2/clientcredentials config with user provided data
 	var credentialConfig = clientcredentials.Config{
 		ClientID:     clientID,

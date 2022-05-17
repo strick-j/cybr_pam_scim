@@ -1,0 +1,11 @@
+# config.yaml
+SITE:
+  TITLE: RESOURCE OWNER EXAMPLE
+
+IDENTITY:
+  USERNAME: "user@example.com"
+  SECRET: "ExampleSecret12!@"
+  APP_ID: "exampleAppName"
+  URL: "tenant.my.idaptive.app"
+  CLIENT_ID: "identity-privilege-integration-user$@example.com"
+  CLIENT_SECRET: "ExampleSecret12!@"

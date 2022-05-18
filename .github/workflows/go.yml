@@ -2,9 +2,9 @@ name: Go
 
 on:
   push:
-    branches: [ main, 9-add-tests-for-various-functions ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, 9-add-tests-for-various-functions ]
+    branches: [ main ]
 
 jobs:
 

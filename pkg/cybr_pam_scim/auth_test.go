@@ -37,12 +37,12 @@ func setupMockOAuthServer() (*httptest.Server, func()) {
 func TestOauthCredClient(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		defer r.Body.Close()
-		expected := "/oauth2/token/CLIENT_APP_ID"
+		expected := "/oauth2/token/client_app_id"
 		if r.URL.String() != expected {
 			t.Errorf("URL = %q; want %q", r.URL, expected)
 		}
 		headerAuth := r.Header.Get("Authorization")
-		expected = "Basic Q0xJRU5UX0lEOkNMSUVOVF9TRUNSRVQ="
+		expected = "Basic Y2xpZW50X2lkOmNsaWVudF9zZWNyZXQ="
 		if headerAuth != expected {
 			t.Errorf("Authorization header = %q; want %q", headerAuth, expected)
 		}
@@ -64,8 +64,7 @@ func TestOauthCredClient(t *testing.T) {
 	}))
 	defer ts.Close()
 
-	// TODO Add Additional Cases
-	tok, err := OauthCredClient("CLIENT_ID", "CLIENT_SECRET", "CLIENT_APP_ID", ts.URL)
+	tok, err := OauthCredClient("client_id", "client_secret", "client_app_id", ts.URL)
 	if err != nil {
 		t.Error(err)
 	}
@@ -80,7 +79,6 @@ func TestOauthCredClient(t *testing.T) {
 	if tok.TokenType != expected {
 		t.Errorf("TokenType = %q; want %q", tok.TokenType, expected)
 	}
-
 }
 
 func TestOauthResourceOwner(t *testing.T) {
@@ -91,7 +89,7 @@ func TestOauthResourceOwner(t *testing.T) {
 			t.Errorf("URL = %q; want %q", r.URL, expected)
 		}
 		headerAuth := r.Header.Get("Authorization")
-		expected = "Basic Q0xJRU5UX0lEOkNMSUVOVF9TRUNSRVQ="
+		expected = "Basic Y2xpZW50X2lkOmNsaWVudF9zZWNyZXQ="
 		if headerAuth != expected {
 			t.Errorf("Authorization header = %q; want %q", headerAuth, expected)
 		}
@@ -109,16 +107,14 @@ func TestOauthResourceOwner(t *testing.T) {
 			t.Errorf("res.Body = %q; want %q", string(body), expected)
 		}
 		w.Header().Set("Content-Type", "application/x-www-form-urlencoded")
-		w.Write([]byte("access_token=90d64460d14870c08c81352a05dedd3465940a7c&scope=user&token_type=bearer"))
+		w.Write([]byte("access_token=90d64460d14870c08c81352a05dedd3465940a7c&scope=scim&token_type=bearer"))
 	}))
 	defer ts.Close()
 
-	// TODO Add Additional Cases
-	tok, err := OauthResourceOwner("CLIENT_ID", "CLIENT_SECRET", "client_app_id", ts.URL, "user1", "password1")
+	tok, err := OauthResourceOwner("client_id", "client_secret", "client_app_id", ts.URL, "user1", "password1")
 	if err != nil {
 		t.Error(err)
 	}
-
 	if !tok.Valid() {
 		t.Fatalf("Token invalid. Got: %#v", tok)
 	}

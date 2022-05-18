@@ -19,6 +19,8 @@ type tokenSource struct {
 //   clientAppID - ID for the SCIM Application
 //   clientURL - URL for the SCIM Application (e.g. "example.my.idaptive.app")
 func OauthCredClient(clientID, clientSecret, clientAppID, clientURL string) (*oauth2.Token, error) {
+	// TODO: PARSE URL and add HTTPS if URL scheme not provided
+
 	// Establish oauth2/clientcredentials config with user provided data
 	var credentialConfig = clientcredentials.Config{
 		ClientID:     clientID,
@@ -51,6 +53,8 @@ func OauthCredClient(clientID, clientSecret, clientAppID, clientURL string) (*oa
 //   resourceUsername - Username for the Resource Owner
 //   resourcePassword - Password for the Resource Owner
 func OauthResourceOwner(clientID, clientSecret, clientAppID, clientURL, resourceUsername, resourcePassword string) (*oauth2.Token, error) {
+	// TODO: PARSE URL and add HTTPS if URL scheme not provided
+
 	endpoint := oauth2.Endpoint{
 		AuthURL:   clientURL + "/oauth2/authorize/" + clientAppID,
 		TokenURL:  clientURL + "/oauth2/token/" + clientAppID,
